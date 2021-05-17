@@ -1,29 +1,31 @@
-from selenium_ui.conftest import print_timing
-from .baseTestCase import BaseTestCase
+from util.conf import BaseAppSettings
+from .navigator import Navigator
 
 
-class TestPerformance(BaseTestCase):
-    """
-    Assumes a project with key AWS already exists and has been configured and synced with AWS.
+def test_1_aws_opsitems(jsm_webdriver):
 
-    N.B. Ensure that the sync intervals are high (i.e. no more than daily (1440 minutes)) and that any running sync has
-    completed before performing any timed tests. Tests should not include waiting for any update from AWS.
-    """
+    navigator = Navigator(jsm_webdriver)
 
-    project_key: str = "AWS"
+    def test_navigator_login():
+        navigator.login()
 
-    # def test_service_catalog(self):
-    #     # page = self.navigator.login()
-    #     # click create in top menu
-    #     # select AWS project
-    #     # select Service Catalog issue type
-    #     #
+    test_navigator_login()
 
-    def test_navigator_login(self):
-        self.navigator.login()
+    # def test_1_2_navigator_admin_projects_page(self):
+    #     self.navigator.admin_projects_page()
+
+    # def test_navigator_manage_apps_page(self):
+    #     self.navigator.manage_apps_page()
+    #
+    # def test_navigator_account_list_page(self):
+    #     self.navigator.account_list_page()
+    #
+    # def test_navigator_connector_setting_page(self):
+    #     self.navigator.connector_settings_page()
 
     # def test_ops_items_create_and_resolve(self):
     #     """create an ops item issue and resolve it"""
+        # self.navigator.login()
         # issue_key = self.navigator.create_ops_item(
         #     project=self.project_key,
         #     summary="new ops item",
@@ -45,3 +47,4 @@ class TestPerformance(BaseTestCase):
     #     # filter to security findings
     #     # select first finding
     #     # add comment
+

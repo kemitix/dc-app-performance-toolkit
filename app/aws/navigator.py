@@ -4,6 +4,9 @@ import time
 from selenium.webdriver.chrome.webdriver import WebDriver
 from selenium.webdriver.common.keys import Keys
 
+from util.conf import BaseAppSettings
+from util.project_paths import JSM_YML
+
 from .pages.accountDetailsPage import AccountDetailsPage
 from .pages.accountListPage import AccountListPage
 from .pages.adminProjectsPage import AdminProjectsPage, ProjectNotFoundError
@@ -38,12 +41,16 @@ class Navigator:
         self.logged_in = False
         self.has_account = False
         self.last_page = 'unknown'
-        self.site_url = os.environ["SITE_URL"] # FIXME
+        self.settings = BaseAppSettings(config_yml=JSM_YML)
+        self.site_url = self.settings.server_url
+        self.site_user = self.settings.admin_login
+        self.site_password = self.settings.admin_password
 
     def login(self) -> LoggedInPage:
         if not self.logged_in:
+            self.driver.get(self.site_url)
             login_page = LoginPage(self.driver)
-            login_page.login_as('admin', 'admin')
+            login_page.login_as(self.site_user, self.site_password)
             self.logged_in = True
         return LoggedInPage(self.driver)
 
@@ -114,6 +121,7 @@ class Navigator:
         # TODO SAVE
 
     def admin_projects_page(self) -> AdminProjectsPage:
+        print("Admin Project Page - Last Page: " + self.last_page)
         if not self.last_page == "admin_projects":
             page = self.login()
             page.click_admin_menu()
