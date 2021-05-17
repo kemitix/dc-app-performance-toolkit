@@ -19,9 +19,11 @@ class TestPerformance(BaseTestCase):
     #     # select Service Catalog issue type
     #     #
 
-    def test_ops_items_create_and_resolve(self):
-        """create an ops item issue and resolve it"""
-        assert True
+    def test_navigator_login(self):
+        self.navigator.login()
+
+    # def test_ops_items_create_and_resolve(self):
+    #     """create an ops item issue and resolve it"""
         # issue_key = self.navigator.create_ops_item(
         #     project=self.project_key,
         #     summary="new ops item",
