@@ -40,6 +40,10 @@ class PageElement:
     def by_partial_link_text(partial_link_text: str) -> Locator:
         return By.PARTIAL_LINK_TEXT, partial_link_text
 
+    @staticmethod
+    def by_xpath(xpath: str) -> Locator:
+        return By.XPATH, xpath
+
     def find_element(self) -> WebElement:
         self.wait_for_element()
         element = self.driver.find_element(*self.locator)
