@@ -17,6 +17,9 @@ class BasePage:
     def page_element(self, locator: Locator) -> PageElement:
         return PageElement(self.driver, locator)
 
+    def element_exists(self, locator: Locator) -> bool:
+        return self.page_element(locator).exists()
+
     def find_element(self, locator: Locator):
         return self.page_element(locator).find_element()
 

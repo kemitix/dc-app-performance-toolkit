@@ -1,7 +1,7 @@
 import time
 
 from .basePage import BasePage
-from .pageElements import PageElement, Locator
+from .pageElements import PageElement, Locator, PageFieldElement
 
 
 class LoggedInPage(BasePage):
@@ -12,6 +12,10 @@ class LoggedInPage(BasePage):
     __TOOLBAR_CREATE_BUTTON = PageElement.by_css_selector("#create_link")
     __ISSUES_MENU = PageElement.by_css_selector("#find_link")
     __ISSUE_SEARCH_MENU = PageElement.by_css_selector("#issues_new_search_link_lnk")
+    __ADMIN_ACCESS_PASSWORD = PageElement.by_css_selector("#login-form-authenticatePassword")
+    __CONFIRM_PASSWORD_BUTTON = PageElement.by_css_selector("#login-form-submit")
+
+    __admin_access_password = PageFieldElement(__ADMIN_ACCESS_PASSWORD)
 
     def click_manage_apps(self):
         self.click(self.__MANAGE_APPS_LINK)
@@ -34,3 +38,9 @@ class LoggedInPage(BasePage):
 
     def click_issue_search_menu(self):
         self.click(self.__ISSUE_SEARCH_MENU)
+
+    def confirm_password_if_required(self, password: str) -> None:
+        time.sleep(1)
+        if self.element_exists(self.__ADMIN_ACCESS_PASSWORD):
+            self.__admin_access_password = password
+            self.submit(self.__CONFIRM_PASSWORD_BUTTON)
