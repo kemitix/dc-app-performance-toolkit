@@ -4,9 +4,8 @@ import time
 from selenium.webdriver.chrome.webdriver import WebDriver
 from selenium.webdriver.common.keys import Keys
 
+from selenium_ui.jsm.pages.agent_pages import Login
 from util.conf import BaseAppSettings
-from util.project_paths import JSM_YML
-
 from .pages.accountDetailsPage import AccountDetailsPage
 from .pages.accountListPage import AccountListPage
 from .pages.adminProjectsPage import AdminProjectsPage, ProjectNotFoundError
@@ -15,7 +14,6 @@ from .pages.connectorSettingsPage import ConnectorSettingsPage
 from .pages.createIssueFirstPage import CreateIssueFirstPage
 from .pages.createOpsItemIssuePage import CreateOpsItemIssuePage
 from .pages.loggedInPage import LoggedInPage
-from .pages.loginPage import LoginPage
 from .pages.manageAppsPage import ManageAppsPage
 from .pages.projectPage import ProjectPage
 from .pages.viewIssuePage import ViewIssuePage
@@ -36,21 +34,27 @@ class Navigator:
         end_secret = os.environ['AWS_QA_END_SECRET']
     )
 
-    def __init__(self, driver):
+    def __init__(self, driver, yaml_file):
         self.driver = driver
         self.logged_in = False
         self.has_account = False
         self.last_page = 'unknown'
-        self.settings = BaseAppSettings(config_yml=JSM_YML)
+        self.settings = BaseAppSettings(config_yml=yaml_file)
         self.site_url = self.settings.server_url
         self.site_user = self.settings.admin_login
         self.site_password = self.settings.admin_password
 
     def login(self) -> LoggedInPage:
         if not self.logged_in:
-            self.driver.get(self.site_url)
-            login_page = LoginPage(self.driver)
-            login_page.login_as(self.site_user, self.site_password)
+            login_page = Login(self.driver)
+            login_page.go_to()
+            self.driver.node_id = login_page.get_node_id()
+            login_page.set_credentials(username=self.site_user, password=self.site_password)
+            if login_page.is_first_login():
+                login_page.first_login_setup()
+            if login_page.is_first_login_second_page():
+                login_page.first_login_second_page_setup()
+            login_page.wait_for_page_loaded()
             self.logged_in = True
         return LoggedInPage(self.driver)
 
@@ -122,11 +126,12 @@ class Navigator:
 
     def admin_projects_page(self) -> AdminProjectsPage:
         print("Admin Project Page - Last Page: " + self.last_page)
-        if not self.last_page == "admin_projects":
-            page = self.login()
-            page.click_admin_menu()
-            page.click_admin_projects_menu()
-            self.last_page = "admin_projects"
+        # secure/project/BrowseProjects.jspa?s=view_projects
+        #if not self.last_page == "admin_projects":
+        page = self.login()
+        page.click_admin_menu()
+        page.click_admin_projects_menu()
+        self.last_page = "admin_projects"
         return AdminProjectsPage(self.driver)
 
     def create_issue_page(self):
