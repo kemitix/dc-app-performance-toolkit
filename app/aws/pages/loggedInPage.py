@@ -30,8 +30,8 @@ class LoggedInPage(BasePage):
     def click_toolbar_create_button(self):
         self.click(self.__TOOLBAR_CREATE_BUTTON)
 
-    def custom_field_locator(self, field_id: str) -> Locator:
-        return PageElement.by_css_selector(f"#customfield_{field_id}")
+    def custom_field_locator(self, label: str) -> Locator:
+        return PageElement.by_xpath(f"//label[text()='{label}']/../select")
 
     def click_issue_menu(self):
         self.click(self.__ISSUES_MENU)

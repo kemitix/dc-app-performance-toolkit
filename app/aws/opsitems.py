@@ -27,19 +27,19 @@ def aws_opsitems(driver):
         navigator.connector_settings_page()
     navigate_to_connector_setting_page()
 
-    # @print_timing("selenium_aws_opsitem_create_and_resolve")
-    # def opsitems_create_and_resolve():
-    #     """create an ops item issue and resolve it"""
-    #     navigator.login()
-    #     issue_key = navigator.create_ops_item(
-    #         project="AWS",
-    #         summary="new ops item",
-    #         description="ops item description",
-    #         severity="4 - Low",
-    #         category="Performance",
-    #         region="eu-central-1")
-    #     navigator.resolve_issue(issue_key)
-    # opsitems_create_and_resolve()
+    @print_timing("selenium_aws_opsitem_create_and_resolve")
+    def opsitems_create_and_resolve():
+        """create an ops item issue and resolve it"""
+        navigator.login()
+        issue_key = navigator.create_ops_item(
+            project="AWS",
+            summary="new ops item",
+            description="ops item description",
+            severity="4 - Low",
+            category="Performance",
+            region="eu-central-1")
+        navigator.resolve_issue(issue_key)
+    opsitems_create_and_resolve()
 
     # def test_ops_item_find_and_mark_in_progress(self):
     #     """Search for any open OpsItem issue and mark as in progress"""

@@ -1,19 +1,19 @@
 from .createIssueSecondPage import CreateIssueSecondPage
-from .customFields import CustomFields
 from .pageElements import Locator, PageElement
 
 
 class CreateOpsItemIssuePage(CreateIssueSecondPage):
 
+    severity_label: Locator
     severity_select: Locator
     category_select: Locator
     region_select: Locator
 
     def __init__(self, driver):
         super().__init__(driver)
-        self.severity_select = self.custom_field_locator(CustomFields.OpsItem.severity)
-        self.category_select = self.custom_field_locator(CustomFields.OpsItem.category)
-        self.region_select = self.custom_field_locator(CustomFields.OpsItem.region)
+        self.severity_select = self.custom_field_locator("Severity")
+        self.category_select = self.custom_field_locator("Category")
+        self.region_select = self.custom_field_locator("Region")
 
     def set_severity(self, severity: str) -> None:
         self.select_option(severity, self.severity_select)
