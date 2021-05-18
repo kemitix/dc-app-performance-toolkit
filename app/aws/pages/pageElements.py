@@ -1,5 +1,6 @@
 from typing import List, NewType
 
+from selenium.common.exceptions import NoSuchElementException
 from selenium.webdriver.chrome.webdriver import WebDriver
 from selenium.webdriver.common.by import By
 from selenium.webdriver.remote.webelement import WebElement
@@ -62,6 +63,14 @@ class PageElement:
     @property
     def text(self):
         return self.find_element().text
+
+    def exists(self):
+        # doesn't wait for the element
+        try:
+            element = self.driver.find_element(*self.locator)
+            return element is not None
+        except NoSuchElementException:
+            return False
 
 
 class PageFieldElement:

@@ -63,6 +63,7 @@ class Navigator:
             page = self.login()
             page.click_admin_menu()
             page.click_manage_apps()
+            page.confirm_password_if_required(self.site_password)
             self.last_page = 'manage_apps'
         return ManageAppsPage(self.driver)
 

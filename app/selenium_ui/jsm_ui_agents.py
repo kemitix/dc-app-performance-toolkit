@@ -1,7 +1,7 @@
 from selenium_ui.jsm import modules_agents
 import pytest
 from extension.jsm import extension_ui_agents  # noqa F401
-from aws import ping
+from aws import ping, opsitems
 
 
 def is_dataset_small(jsm_datasets):
@@ -55,19 +55,12 @@ def test_1_selenium_agent_view_queues_medium(jsm_webdriver, jsm_datasets, jsm_sc
     modules_agents.view_queues_medium(jsm_webdriver, jsm_datasets)
 
 
-def test_1_selenium_agent_view_queues_small(jsm_webdriver, jsm_datasets, jsm_screen_shots):
-    modules_agents.view_queues_small(jsm_webdriver, jsm_datasets)
-
-
-"""
-Add custom actions anywhere between login and log out action. Move this to a different line as needed.
-Write your custom selenium scripts in `app/extension/jsm/extension_ui_agents.py`.
-Refer to `app/selenium_ui/jsm/modules_agents.py` for examples.
-"""
-def test_1_selenium_agent_custom_action(jsm_webdriver, jsm_datasets, jsm_screen_shots):
-    # extension_ui_agents.app_specific_action(jsm_webdriver, jsm_datasets)
-    assert jsm_webdriver is not None, "custom action has no webdriver"
+def test_1_selenium_aws_ping(jsm_webdriver, jsm_datasets, jsm_screen_shots):
     ping.aws_ping(jsm_webdriver)
+
+
+def test_1_selenium_aws_opsitems(jsm_webdriver, jsm_datasets, jsm_screen_shots):
+    opsitems.aws_opsitems(jsm_webdriver)
 
 
 # this action should be the last one
