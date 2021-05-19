@@ -30,7 +30,6 @@ def aws_opsitems(driver):
     @print_timing("selenium_aws_opsitem_create_and_resolve")
     def opsitems_create_and_resolve():
         """create an ops item issue and resolve it"""
-        navigator.login()
         issue_key = navigator.create_ops_item(
             project="AWS",
             summary="new ops item",
