@@ -1,5 +1,6 @@
 import time
 
+from selenium_ui.jsm.pages.agent_pages import PopupManager
 from .basePage import BasePage
 from .pageElements import PageElement, Locator, PageFieldElement
 
@@ -23,6 +24,7 @@ class LoggedInPage(BasePage):
     def click_admin_menu(self):
         self.click(self.__ADMIN_MENU)
         time.sleep(1)
+        PopupManager(self.driver).dismiss_default_popup()
 
     def click_admin_projects_menu(self):
         self.click(self.__ADMIN_PROJECTS_MENU)
