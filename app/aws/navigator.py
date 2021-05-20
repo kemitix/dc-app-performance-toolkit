@@ -28,10 +28,10 @@ class Navigator:
 
     account_details = AccountDetails(
         alias = "cloudsoftqa",
-        sync_key = os.environ['AWS_QA_SYNC_KEY'],
-        sync_secret = os.environ['AWS_QA_SYNC_SECRET'],
-        end_key = os.environ['AWS_QA_END_KEY'],
-        end_secret = os.environ['AWS_QA_END_SECRET']
+        sync_key = "",  # os.environ['AWS_QA_SYNC_KEY'],
+        sync_secret = "",  # os.environ['AWS_QA_SYNC_SECRET'],
+        end_key = "",  # os.environ['AWS_QA_END_KEY'],
+        end_secret = "",  # os.environ['AWS_QA_END_SECRET']
     )
 
     def __init__(self, driver, yaml_file):
