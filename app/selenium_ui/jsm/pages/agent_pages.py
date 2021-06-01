@@ -97,6 +97,8 @@ class ViewCustomerRequest(BasePage):
         textarea.click()
 
         if rte_status:
+            visual_editor_tab = self.wait_until_clickable(ViewCustomerRequestLocators.comment_visual_editor_tab)
+            visual_editor_tab.click()
             self.wait_until_available_to_switch(ViewCustomerRequestLocators.comment_text_field_RTE)
             tinymce_field = self.get_element(ViewCustomerRequestLocators.comment_tinymce_field)
             self.action_chains().send_keys_to_element(tinymce_field, comment_text).perform()

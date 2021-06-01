@@ -97,6 +97,7 @@ class ViewCustomerRequestLocators:
 
     comment_collapsed_textarea = (By.ID, "sd-comment-collapsed-textarea")
     comment_text_field_RTE = (By.XPATH, "//div[textarea[@id='comment']]//iframe")
+    comment_visual_editor_tab = (By.CSS_SELECTOR, "sd-comment nav li:first-of-type a")
     comment_text_field = (By.XPATH, "//textarea[@id='comment']")
     comment_tinymce_field = (By.ID, "tinymce")
     comment_internally_btn = (By.XPATH, "//button[contains(text(),'Comment internally')]")
