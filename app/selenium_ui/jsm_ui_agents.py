@@ -1,7 +1,7 @@
 from selenium_ui.jsm import modules_agents
 import pytest
 from extension.jsm import extension_ui_agents  # noqa F401
-from aws import ping, opsitems
+from aws import opsitems
 
 
 def is_dataset_small(jsm_datasets):
@@ -53,10 +53,6 @@ def test_1_selenium_agent_view_queues_medium(jsm_webdriver, jsm_datasets, jsm_sc
     if is_dataset_small(jsm_datasets):
         pytest.skip("Dataset does not have medium (10k-100k requests) service desk. Skipping action.")
     modules_agents.view_queues_medium(jsm_webdriver, jsm_datasets)
-
-
-def test_1_selenium_aws_ping(jsm_webdriver, jsm_datasets, jsm_screen_shots):
-    ping.aws_ping(jsm_webdriver)
 
 
 def test_1_selenium_aws_opsitems(jsm_webdriver, jsm_datasets, jsm_screen_shots):
