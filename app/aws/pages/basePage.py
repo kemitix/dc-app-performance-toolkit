@@ -29,6 +29,9 @@ class BasePage:
     def click(self, locator: Locator) -> None:
         self.page_element(locator).click()
 
+    def click_body(self) -> None:
+        self.page_element('body').click()
+
     def submit(self, locator: Locator) -> None:
         """submit a form element
 

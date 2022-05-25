@@ -19,6 +19,7 @@ class CreateIssueFirstPage(LoggedInPage):
             self.click(PageElement.by_partial_link_text(f"({project_key})"))
         else:
             self.click(PageElement.by_css_selector("#project-single-select > span"))
+        self.click_body()
 
     def set_issue_type(self, issue_type: str):
         self.click(PageElement.by_css_selector("#issuetype-single-select > span"))
@@ -26,3 +27,4 @@ class CreateIssueFirstPage(LoggedInPage):
             self.click(PageElement.by_link_text(issue_type))
         else:
             self.click(PageElement.by_css_selector("#issuetype-single-select > span"))
+        self.click_body()
