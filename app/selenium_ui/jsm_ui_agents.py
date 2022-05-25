@@ -2,6 +2,7 @@ from selenium_ui.jsm import modules_agents
 import pytest
 from extension.jsm import extension_ui_agents  # noqa F401
 from aws import opsitems
+from util.conf import JSM_SETTINGS
 
 
 def is_dataset_small(jsm_datasets):
@@ -57,6 +58,52 @@ def test_1_selenium_agent_view_queues_medium(jsm_webdriver, jsm_datasets, jsm_sc
 
 def test_1_selenium_aws_opsitems(jsm_webdriver, jsm_datasets, jsm_screen_shots):
     opsitems.aws_opsitems(jsm_webdriver)
+
+"""
+To enable specific tests for Insight below, set 'True' next to `insight` variable (False by default) in  `app/jsm.yml`
+"""
+
+
+def test_1_selenium_agent_insight_main_page(jsm_webdriver, jsm_datasets, jira_screen_shots):
+    if not JSM_SETTINGS.insight:
+        pytest.skip()
+    modules_agents.insight_main_page(jsm_webdriver, jsm_datasets)
+
+
+def test_1_selenium_agent_insight_create_new_schema(jsm_webdriver, jsm_datasets, jira_screen_shots):
+    if not JSM_SETTINGS.insight:
+        pytest.skip()
+    modules_agents.insight_create_new_schema(jsm_webdriver, jsm_datasets)
+
+
+def test_1_selenium_agent_insight_create_new_object(jsm_webdriver, jsm_datasets, jira_screen_shots):
+    if not JSM_SETTINGS.insight:
+        pytest.skip()
+    modules_agents.insight_create_new_object(jsm_webdriver, jsm_datasets)
+
+
+def test_1_selenium_agent_insight_delete_new_schema(jsm_webdriver, jsm_datasets, jira_screen_shots):
+    if not JSM_SETTINGS.insight:
+        pytest.skip()
+    modules_agents.insight_delete_new_schema(jsm_webdriver, jsm_datasets)
+
+
+def test_1_selenium_agent_insight_view_queue_with_insight_column(jsm_webdriver, jsm_datasets, jira_screen_shots):
+    if not JSM_SETTINGS.insight:
+        pytest.skip()
+    modules_agents.insight_view_queue_insight_column(jsm_webdriver, jsm_datasets)
+
+
+def test_1_selenium_agent_insight_search_object_by_iql(jsm_webdriver, jsm_datasets, jira_screen_shots):
+    if not JSM_SETTINGS.insight:
+        pytest.skip()
+    modules_agents.insight_search_object_by_iql(jsm_webdriver, jsm_datasets)
+
+
+def test_1_selenium_agent_insight_view_issue_with_objects(jsm_webdriver, jsm_datasets, jira_screen_shots):
+    if not JSM_SETTINGS.insight:
+        pytest.skip()
+    modules_agents.view_issue_with_insight_objects(jsm_webdriver, jsm_datasets)
 
 
 # this action should be the last one
